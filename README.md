@@ -1,2 +1,2 @@
 # Case_MD3
-Case Module 3 Codegym
+Case Module 3 Codegy
