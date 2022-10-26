@@ -21,7 +21,6 @@ const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url);
   const paths = parsedUrl.pathname.slice(1).split("/");
   const current = paths.shift();
-  console.log(paths);
   if (current === "" || current === "home") {
     routers.home(req, res);
   } else if (routers[current]) {
