@@ -1,0 +1,29 @@
+{
+  "name": "case_md3",
+  "version": "1.0.0",
+  "description": "Case Module 3 Codegym",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "devStart": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwimmingPotato248/Case_MD3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SwimmingPotato248/Case_MD3/issues"
+  },
+  "homepage": "https://github.com/SwimmingPotato248/Case_MD3#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "mysql2": "^2.3.3",
+    "qs": "^6.11.0",
+    "url": "^0.11.0"
+  }
+}
