@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
   } else if (routers[current]) {
     routers[current](req, res);
   } else {
-    routers.notFound(req, res);
+    routers.notFound(req, res, +paths[2]);
   }
 });
 
