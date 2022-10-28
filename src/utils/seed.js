@@ -8,3 +8,4 @@ connection.query("DROP TABLE USER;", (e, results, fields) => {
   console.log(results);
   console.log(fields);
 });
+

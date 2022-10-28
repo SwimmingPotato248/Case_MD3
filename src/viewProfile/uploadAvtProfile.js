@@ -11,7 +11,6 @@ http.createServer(function (req, res) {
                 console.log(err);
             }
             res.writeHead(200, {"Content-Type": "application/json"});
-
             const dataImgInput = files.multipleFiles;
             if(!dataImgInput.length){
                 let tmpPath = dataImgInput.filepath;

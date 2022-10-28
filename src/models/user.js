@@ -10,9 +10,25 @@ class UserService {
         return profileHtml;
     }
 
+    static upLinkAvt(Profile, linkAvt, id) {
+        return new Promise((resolve, reject) => {
+            connection.query(`update Profile
+                              set avatar = '${linkAvt}'
+                              where id = ${id}`, (err, Profile) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    console.log('Edit Success !!!');
+                    resolve(Profile);
+                }
+            })
+        })
+    }
+
     static getUser() {
         return new Promise((resolve, reject) => {
-            connection.query(`select *from Profile`, (err, Profile) => {
+            connection.query(`select *
+                              from Profile`, (err, Profile) => {
                 if (err) {
                     reject(err);
                 } else {
