@@ -1,9 +1,9 @@
 const http = require("http");
 const url = require("url");
-const { authController } = require("./controllers/authController");
-const { homeController } = require("./controllers/homeController");
-const { postController } = require("./controllers/postController");
-const { userController } = require("./controllers/userController");
+const { authController } = require("./src/controllers/authController");
+const { homeController } = require("./src/controllers/homeController");
+const { postController } = require("./src/controllers/postController");
+const { userController } = require("./src/controllers/userController");
 
 const notFoundRouter = (req, res) => {
   res.end("404");
@@ -20,7 +20,7 @@ const routers = {
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url);
   const paths = parsedUrl.pathname.slice(1).split("/");
-  const current = paths.shift();
+  const current  = paths.shift();
   console.log(paths);
   if (current === "" || current === "home") {
     routers.home(req, res);
