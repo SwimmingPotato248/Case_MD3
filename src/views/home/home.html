@@ -20,7 +20,8 @@
     />
     <!-- main style -->
     <title>Flexbook</title>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="../home.css">
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray postion-relative">
 <!-- ================= Appbar ================= -->
@@ -2015,7 +2016,7 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a
-                                        href="./home.html"
+                                        href="http://localhost:3000/auth"
                                         class="d-flex text-decoration-none text-dark"
                                 >
                                     <i class="fas fa-cog bg-gray p-2 rounded-circle"></i>
@@ -4544,7 +4545,7 @@
                             text-muted
                             p-1
                           "
-                                            onclick="sendNotificationLike()">
+                                            onclick="">
                                         <i class="fas fa-thumbs-up me-3"></i>
                                         <p class="m-0">Like</p>
                                     </div>
@@ -6351,6 +6352,13 @@
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"
 ></script>
-<script src="../../models/home.js"></script>
+<!--<script src="../../models/home.js"></script>-->
+<script>
+    const socket = io('http://localhost:3000/home');
+    // let name = prompt();
+    socket.emit("sendNotification",name);
+</script>
+<script src="main.js"></script>
+
 </body>
 </html>
