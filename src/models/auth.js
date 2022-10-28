@@ -28,20 +28,17 @@ class UserService {
         });
     }
 
-    // static checkCountUser() {
-    //     return new Promise((resolve, reject) => {
-    //         connection.query(`SELECT *
-    //                           FROM User
-    //                           WHERE username = ${name}`, (err, checkUser) => {
-    //             if (err) {
-    //                 reject(err)
-    //             } else {
-    //                 resolve(checkUser);
-    //             }
-    //         });
-    //     });
-    //
-    // }
+    static checkCountSignUpUser(name) {
+        return new Promise((resolve, reject) => {
+            connection.query(`SELECT * FROM User WHERE username = "${name}"`, (err, checkUser) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(checkUser);
+                }
+            });
+        });
+    }
 }
 
 module.exports = UserService;

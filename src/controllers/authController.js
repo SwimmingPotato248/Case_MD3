@@ -2,6 +2,8 @@
     const fs = require('fs');
     const qs = require('qs');
     const url = require('url');
+    const alert = require('alert');
+
     const UserService = require('../models/auth');
 
     module.exports.authController = (req, res) => {
@@ -39,11 +41,17 @@
                         console.log(err);
                     } else {
                         let userInformation = qs.parse(userChunk);
-                        await UserService.getSignUpUser(userInformation);
+                        let user = await UserService.checkCountSignUpUser(userInformation.name);
+                        if(user.length >= 1){
+                            alert('--Tài khoản đã tồn tại--');
+                            res.writeHead(301, {'location': '/auth/signup'});
+                            res.end();
+                        } else {
+                            await UserService.saveDataUser(userInformation);
+                        }
                         res.writeHead(301, {'location': '/auth/login'});
                         res.end();
                     }
-                    ``
                 })
             }
         }
@@ -68,11 +76,16 @@
                         console.log(err);
                     } else {
                         let userInformation = qs.parse(userChunk);
-                        console.log(userInformation);
-                        await UserService.saveDataUser(userInformation);
-                        res.writeHead(301, {'location': '/auth/user'});
-                        res.end();
+                        let userdata = await UserService.checkCountSignUpUser(userInformation.name);
+                        if(userdata.length < 1){
+                            alert('--Tài khoản đăng ký với đăng nhập không khớp--')
+                        }else {
+                            res.writeHead(301, {'location': '/auth/user'});
+                            res.end();
+                        }
                     }
+                    res.writeHead(301, {'location': '/auth/login'});
+                    res.end();
                 })
             }
         }
