@@ -76,9 +76,11 @@
                         console.log(err);
                     } else {
                         let userInformation = qs.parse(userChunk);
-                        let userdata = await UserService.checkCountSignUpUser(userInformation.name);
+                        let userdata = await UserService.checkLogin(userInformation.name,userInformation.password);
                         if(userdata.length < 1){
                             alert('--Tài khoản đăng ký với đăng nhập không khớp--')
+                            res.writeHead(301, {'location': '/auth/login'});
+                            res.end();
                         }else {
                             res.writeHead(301, {'location': '/auth/user'});
                             res.end();
