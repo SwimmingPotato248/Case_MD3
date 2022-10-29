@@ -4,9 +4,11 @@ const UserService = require("../models/user");
 const formidable = require('formidable');
 const url = require("url");
 const connection = require("../utils/database");
+const path = require('path');
 module.exports.userController = (req, res) => {
     const path = url.parse(req.url).pathname
 
+    // upload Avt
     if (path.match(/\/users\/\d*\/uploadAvt/)) {
         const id = url.parse(req.url).pathname.slice(1).split('/')[1]
         if (req.method === 'GET') {
@@ -29,19 +31,18 @@ module.exports.userController = (req, res) => {
                 res.writeHead(200, {"Content-Type": "application/json"});
                 const dataImgInput = files.multipleFiles;
                 let tmpPath = dataImgInput.filepath;
-                let newPath = __dirname + "/uploads/" + dataImgInput.originalFilename;
 
+                let newPath = __dirname + "/uploads/" + dataImgInput.originalFilename;
+                console.log('tmpPath', tmpPath)
+                console.log('newPath', newPath)
 
 
                 // console.log('ảnh' + newPath);
                 // thêm avt vào database
                 let profile = await UserService.findById(id);
-                await UserService.upLinkAvt(profile,dataImgInput.originalFilename,`${id}`)
+                await UserService.upLinkAvt(profile,`../controllers/uploads/${dataImgInput.originalFilename}`,`${id}`)
 
-                console.log( 'profile '+ profile)
-                console.log(dataImgInput.originalFilename);
-                console.log(await UserService.upLinkAvt(profile,dataImgInput.originalFilename,`${id}`));
-
+                console.log('link ảnh ', dataImgInput.originalFilename);
 
                 fs.readFile(newPath, (err) => {
                     if (err) {
@@ -50,6 +51,9 @@ module.exports.userController = (req, res) => {
                         });
                     }
                 });
+                res.writeHead(301, {'location': `/users/${id}`});
+                res.write('File uploaded and moved!');
+                res.end();
             });
         }
     }
@@ -64,8 +68,14 @@ module.exports.userController = (req, res) => {
                 } else {
                     let profile = await UserService.findById(id);
                     const formattedDate = new Date(profile[0].date_of_birth).toISOString().split('T')[0];
-                    createProfileHtml = createProfileHtml.replace('{profile}', formattedDate);
+                    createProfileHtml = createProfileHtml.replace('{date_of_birth}', formattedDate);
+                    createProfileHtml = createProfileHtml.replace('{img}', profile[0].avatar);
+                    console.log(profile[0].avatar)
+                    createProfileHtml = createProfileHtml.replace('{bio}', profile[0].bio);
+                    createProfileHtml = createProfileHtml.replace('{name}', profile[0].name)
                     res.writeHead(200, {'Content-Type': 'text/html'});
+                    //
+                    // res.writeHead(200, {'Content-Type': 'image/ipg'});
                     res.write(createProfileHtml);
                     res.end();
                 }
@@ -117,6 +127,7 @@ module.exports.userController = (req, res) => {
                     editProfileHtml = editProfileHtml.replace('{name}', profile[0].name);
                     editProfileHtml = editProfileHtml.replace('{date_of_birth}', formattedDate);
                     editProfileHtml = editProfileHtml.replace('{bio}', profile[0].bio);
+                    editProfileHtml = editProfileHtml.replace('{img}', profile[0].avatar)
                     res.writeHead(200, 'text/html');
                     res.write(editProfileHtml);
                     res.end();
@@ -144,7 +155,7 @@ module.exports.userController = (req, res) => {
 // Nếu chưa có profile chuyển đến /users/profile/create
 // Sửa profile ở /users/profile/edit
 }
-;
+
 
 
 

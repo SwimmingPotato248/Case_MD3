@@ -10,10 +10,10 @@ class UserService {
         return profileHtml;
     }
 
-    static upLinkAvt(Profile, linkAvt, id) {
+    static upLinkAvt(Profile, img, id) {
         return new Promise((resolve, reject) => {
             connection.query(`update Profile
-                              set avatar = '${linkAvt}'
+                              set avatar = '${img}'
                               where id = ${id}`, (err, Profile) => {
                 if (err) {
                     reject(err)
@@ -56,7 +56,7 @@ class UserService {
         return new Promise((resolve, reject) => {
             connection.query(`insert into Profile (user_id, name, date_of_birth, bio)
                               values (${Profile.user_id}, '${Profile.name}', '${Profile.birthday}', '${Profile.bio}
-                                      ')`, (err, Profiles) => {
+                                    `, (err, Profiles) => {
                 if (err) {
                     console.log(err)
                     reject(err);
