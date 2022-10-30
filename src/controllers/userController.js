@@ -3,12 +3,12 @@ const qs = require("qs");
 const UserService = require("../models/user");
 const formidable = require('formidable');
 const url = require("url");
-const connection = require("../utils/database");
-const path = require('path');
+
 module.exports.userController = (req, res) => {
     const path = url.parse(req.url).pathname
 
     // upload Avt
+    // Lưu ý lúc lưu tên ảnh phải sửa cho tên ảnh viết liền nhau (không có khoảng trống)
     if (path.match(/\/users\/\d*\/uploadAvt/)) {
         const id = url.parse(req.url).pathname.slice(1).split('/')[1]
         if (req.method === 'GET') {
@@ -21,6 +21,7 @@ module.exports.userController = (req, res) => {
                     res.end();
                 }
             })
+
         } else {
 
             const form = formidable({multiples: true});
@@ -74,8 +75,6 @@ module.exports.userController = (req, res) => {
                     createProfileHtml = createProfileHtml.replace('{bio}', profile[0].bio);
                     createProfileHtml = createProfileHtml.replace('{name}', profile[0].name)
                     res.writeHead(200, {'Content-Type': 'text/html'});
-                    //
-                    // res.writeHead(200, {'Content-Type': 'image/ipg'});
                     res.write(createProfileHtml);
                     res.end();
                 }
@@ -113,6 +112,7 @@ module.exports.userController = (req, res) => {
         //     }
         // }
 
+
 // Edit Profile
     else if (path.match(/\/users\/profile\/edit\/\d*/)) {
         const id = url.parse(req.url).pathname.slice(1).split('/')[3]
@@ -127,7 +127,7 @@ module.exports.userController = (req, res) => {
                     editProfileHtml = editProfileHtml.replace('{name}', profile[0].name);
                     editProfileHtml = editProfileHtml.replace('{date_of_birth}', formattedDate);
                     editProfileHtml = editProfileHtml.replace('{bio}', profile[0].bio);
-                    editProfileHtml = editProfileHtml.replace('{img}', profile[0].avatar)
+                    editProfileHtml = editProfileHtml.replace('{img}', profile[0].avatar);
                     res.writeHead(200, 'text/html');
                     res.write(editProfileHtml);
                     res.end();

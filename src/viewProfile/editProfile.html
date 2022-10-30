@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
 <div>
 
-
-<!--    <button type="reset"><a href="/users/profile/uploadAvt">Up ảnh</a></button>-->
-
-<!--    <a href="/users/profile/uploadAvt"> up-->
-<!--       </a>-->
-
-<!--    <button type="submit">Up ảnh</button>-->
     <form method="post">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="name" value="{name}">
+<!--            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Date of birth</label>
@@ -25,10 +21,34 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Bio</label>
+<!--            <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
             <input type="text" class="form-control" id="exampleInputPassword2" name="bio" value="{bio}">
+
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+
+<!--    //////////////////////////////////////////////////////-->
+<!--    <form method="post">-->
+
+
+<!--        <div class="mb-3">-->
+<!--            <label for="exampleInputEmail1" class="form-label">Name</label>-->
+<!--            <input type="text" class="form-control" id="exampleInputEmail1" name="name" value="{name}">-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--            <label for="exampleInputPassword1" class="form-label">Date of birth</label>-->
+<!--            <input type="date" class="form-control" id="exampleInputPassword1" name="date_of_birth" value="{date_of_birth}">-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--            <label for="exampleInputPassword1" class="form-label">Bio</label>-->
+<!--            <input type="text" class="form-control" id="exampleInputPassword2" name="bio" value="{bio}">-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--    </form>-->
+
 </div>
+
 </body>
 </html>

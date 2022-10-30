@@ -10,6 +10,7 @@ class UserService {
         return profileHtml;
     }
 
+    // upload Avt
     static upLinkAvt(Profile, img, id) {
         return new Promise((resolve, reject) => {
             connection.query(`update Profile

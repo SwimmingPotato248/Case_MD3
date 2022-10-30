@@ -46,20 +46,37 @@ let mimeTypes = {
 //-------------------------------------------test
 
 const server = http.createServer((req, res) => {
-  let urlPath = url.parse(req.url).pathname;
+  const urlPath = url.parse(req.url).pathname;
   const filesDefences = urlPath.match(/\.js|\.css|\.png|\.svg|\.jpg|\.ttf|\.woff|\.woff2|\.eot|\.jpeg/);
   if(filesDefences){
     const extension = mimeTypes[filesDefences[0].toString().split('.')[1]];
     res.writeHead(200,{'Content-Type': extension});
     fs.createReadStream(__dirname + req.url).pipe(res)
-  }else {
+  }
+
+  else {
     const parsedUrl = url.parse(req.url);
   const paths = parsedUrl.pathname.slice(1).split("/");
   const current = paths.shift();
   console.log(paths);
+    console.log('current ' + current);
   if (current === "" || current === "home") {
     routers.home(req, res);
-  } else if (routers[current]) {
+  }
+
+   // else if(current === 'users') {
+   //  fs.readFile('C:\\Users\\Iris\\WebstormProjects\\MD3\\CaseMD3\\Case_MD3\\src\\viewProfile\\showProfile.css', 'utf-8', (err, cssShowProfile) => {
+   //    if (err) {
+   //      console.log(err)
+   //    } else {
+   //      res.writeHead(200, {'Content-Type': 'text/css'});
+   //      res.write(cssShowProfile)
+   //      res.end()
+   //    }
+   //  })}
+
+  else if (routers[current]) {
+
     routers[current](req, res);
   } else {
     routers.notFound(req, res, +paths[2]);
