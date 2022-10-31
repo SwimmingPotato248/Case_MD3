@@ -1,6 +1,1 @@
-
-
-const connection = require("./database");
-
-
-
+const connection = require("../utils/database");
