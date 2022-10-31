@@ -27,8 +27,10 @@ module.exports.authController = (req, res) => {
           console.log(err);
         } else {
           let userInformation = qs.parse(userChunk);
-          let userdata = await UserService.checkCountSignUpUser(
-            userInformation.name
+          console.log({ userInformation });
+          let userdata = await UserService.checkLogin(
+            userInformation.name,
+            userInformation.password
           );
           if (userdata.length < 1) {
             alert("--Tài khoản đăng ký với đăng nhập không khớp--");

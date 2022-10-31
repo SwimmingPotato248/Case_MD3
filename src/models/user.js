@@ -45,38 +45,33 @@ class UserService {
   }
 
   static findById(id) {
+    const sql = `select * from Profile
+        where user_id = ${id}`;
+    console.log(sql);
     return new Promise((resolve, reject) => {
-      connection.query(
-        `select *
-                              from Profile
-                              where id = ${id}`,
-        (err, Profile) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(Profile);
-          }
+      connection.query(sql, (err, Profile) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(Profile);
+          resolve(Profile);
         }
-      );
+      });
     });
   }
 
-  static creatProfile(Profile) {
+  static createProfile(Profile, id) {
+    const sql = `INSERT INTO Profile (user_id, name, date_of_birth, bio) VALUES (${id}, "${Profile.name}", "${Profile.date_of_birth}", "${Profile.bio}")`;
     return new Promise((resolve, reject) => {
-      connection.query(
-        `insert into Profile (user_id, name, date_of_birth, bio)
-                              values (${Profile.user_id}, '${Profile.name}', '${Profile.birthday}', '${Profile.bio}
-                                    `,
-        (err, Profiles) => {
-          if (err) {
-            console.log(err);
-            reject(err);
-          } else {
-            resolve(Profiles);
-            console.log("Creat profile success !!!");
-          }
+      connection.query(sql, (err, Profiles) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(Profiles);
+          console.log("Creat profile success !!!");
         }
-      );
+      });
     });
   }
 

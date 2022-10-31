@@ -6,10 +6,10 @@ const url = require("url");
 
 module.exports.userController = (req, res) => {
   const path = url.parse(req.url).pathname;
-
+  console.log(path);
   // upload Avt
   // Lưu ý lúc lưu tên ảnh phải sửa cho tên ảnh viết liền nhau (không có khoảng trống)
-  if (path.match(/\/users\/\d*\/uploadAvt/)) {
+  if (path.match(/\/users\/\d+\/uploadAvt/)) {
     const id = url.parse(req.url).pathname.slice(1).split("/")[1];
     if (req.method === "GET") {
       fs.readFile(
@@ -66,75 +66,84 @@ module.exports.userController = (req, res) => {
     fs.readFile(
       "src/views/profile/showProfile.html",
       "utf-8",
-      async (err, createProfileHtml) => {
+      async (err, showProfileHtml) => {
         if (err) {
           console.log(err);
         } else {
           let profile = await UserService.findById(id);
-          const formattedDate = new Date(profile[0].date_of_birth)
-            .toISOString()
-            .split("T")[0];
-          createProfileHtml = createProfileHtml.replace(
-            "{date_of_birth}",
-            formattedDate
-          );
-          createProfileHtml = createProfileHtml.replace(
-            "{img}",
-            profile[0].avatar
-          );
-          createProfileHtml = createProfileHtml.replace(
-            "{bio}",
-            profile[0].bio
-          );
-          createProfileHtml = createProfileHtml.replace(
-            "{name}",
-            profile[0].name
-          );
-          res.writeHead(200, { "Content-Type": "text/html" });
-          res.write(createProfileHtml);
-          res.end();
+          if (!profile.length) {
+            res.writeHead(302, { Location: `/users/profile/${id}/create` });
+            res.end();
+          } else {
+            const formattedDate = new Date(profile[0].date_of_birth)
+              .toISOString()
+              .split("T")[0];
+            showProfileHtml = showProfileHtml.replace(
+              "{date_of_birth}",
+              formattedDate
+            );
+            showProfileHtml = showProfileHtml.replace(
+              "{img}",
+              profile[0].avatar
+            );
+            showProfileHtml = showProfileHtml.replace("{bio}", profile[0].bio);
+            showProfileHtml = showProfileHtml.replace(
+              "{name}",
+              profile[0].name
+            );
+            showProfileHtml = showProfileHtml.replace("{userId}", id);
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.write(showProfileHtml);
+            res.end();
+          }
         }
       }
     );
   }
 
-  // Tạo Profile
-  // else if (path === "/users/profile/create") {
-  //     if (req.method === 'GET') {
-  //         fs.readFile('C:\\Users\\Iris\\WebstormProjects\\MD3\\CaseMD3\\Case_MD3\\src\\viewProfile\\creatProfile.html', 'utf-8', (err, createProfileHtml) => {
-  //             if (err) {
-  //                 console.log(err)
-  //             } else {
-  //                 res.writeHead(200, {'Content-Type': 'text/html'});
-  //                 res.write(createProfileHtml);
-  //                 res.end();
-  //             }
-  //         })
-  //     } else {
-  //         let profileChunk = '';
-  //         req.on('data', chunk => {
-  //             profileChunk += chunk
-  //         });
-  //         req.on('end', async (err) => {
-  //             if (err) {
-  //                 console.log(err);
-  //             } else {
-  //                 let profile = qs.parse(profileChunk);
-  //                 await UserService.creatProfile(profile);
-  //                 res.writeHead(301, {'location': '/home'});
-  //                 res.end();
-  //             }
-  //         });
-  //     }
-  // }
+  //Tạo Profile
+  else if (path.match(/\/users\/profile\/\d+\/create/)) {
+    if (req.method === "GET") {
+      fs.readFile(
+        "src/views/profile/createProfile.html",
+        "utf-8",
+        (err, createProfileHtml) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.write(createProfileHtml);
+            res.end();
+          }
+        }
+      );
+    } else {
+      const id = url.parse(req.url).pathname.slice(1).split("/")[2];
+      let profileChunk = "";
+      req.on("data", chunk => {
+        profileChunk += chunk;
+      });
+      req.on("end", async err => {
+        if (err) {
+          console.log(err);
+        } else {
+          let profile = qs.parse(profileChunk);
+          console.log(profile);
+          await UserService.createProfile(profile, id);
+          res.writeHead(301, { location: "/home" });
+          res.end();
+        }
+      });
+    }
+  }
 
   // Edit Profile
-  else if (path.match(/\/users\/profile\/edit\/\d*/)) {
-    const id = url.parse(req.url).pathname.slice(1).split("/")[3];
+  else if (path.match(/\/users\/profile\/\d*\/edit/)) {
+    const id = url.parse(req.url).pathname.slice(1).split("/")[2];
     console.log("id ở edit " + id);
     if (req.method === "GET") {
       fs.readFile(
-        "C:\\Users\\Iris\\WebstormProjects\\MD3\\CaseMD3\\Case_MD3\\src\\viewProfile\\editProfile.html",
+        "src/views/profile/editProfile.html",
         "utf-8",
         async (err, editProfileHtml) => {
           if (err) {
