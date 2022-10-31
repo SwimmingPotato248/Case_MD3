@@ -63,8 +63,11 @@ class PostService {
 }
 
 module.exports = PostService;
-module.exports.getPost = () => {
-  const sql = `SELECT * FROM Post`;
+module.exports.getAllPost = () => {
+  const sql = `SELECT Post.*, User.username FROM Post
+    JOIN User ON Post.user_id = User.id
+    ORDER BY Post.created_at DESC;
+  `;
   return new Promise((resolve, reject) => {
     connection.query(sql, (err, posts) => {
       if (err) {

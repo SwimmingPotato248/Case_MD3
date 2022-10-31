@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Profile</title>
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+      integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      /*
+Template Name: Hoshi
+Description: A Single Page Portfolio HTML Template
+Author: Chris Creed
+URL: http://www.chris-creed.com
+*/
+      /* ----------- */
+      /* -- Tools -- */
+      /* ----------- */
+      .line {
+        clear: both;
+        height: 3px;
+        background-color: #ddd;
+        margin: 40px 0 50px 0;
+      }
+      /* -------------------- */
+      /* -- General Styles -- */
+      /* -------------------- */
+      #wrap {
+        width: 960px;
+        margin: 0 auto;
+      }
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: #eee;
+        color: #666;
+      }
+      h1 {
+        font-size: 38px;
+        margin: 0 0 30px 0;
+      }
+      h2 {
+        font-size: 34px;
+        margin: 0 0 30px 0;
+      }
+      h3 {
+        font-size: 24px;
+        margin: 30px 0 30px 0;
+      }
+      h4 {
+        font-size: 20px;
+        margin: 30px 0 15px 0;
+      }
+      h5 {
+        font-size: 18px;
+        margin: 30px 0 5px 0;
+      }
+      p {
+        font-size: 14px;
+        line-height: 22px;
+        margin: 0 0 15px 0;
+      }
+      a {
+        text-decoration: none;
+        color: #cc0000;
+      }
+      a:hover {
+        color: #666;
+      }
+      /* ------------ */
+      /* -- Header -- */
+      /* ------------ */
+      #header {
+        padding: 50px 0 10px 0;
+        border-bottom: 10px #ddd solid;
+        overflow: hidden;
+      }
+      #header h1 {
+        float: left;
+        font-size: 40px;
+        font-weight: bold;
+        letter-spacing: -2px;
+        margin: 0;
+      }
+      #header h2 {
+        float: right;
+        font-size: 30px;
+        color: #aaa;
+        margin: 8px 0 0 0;
+        letter-spacing: -1px;
+      }
+      /* --------- */
+      /* -- Bio -- */
+      /* --------- */
+      #bio {
+        margin: 55px 0 40px 0;
+      }
+      #bio h3 {
+        font-size: 20px;
+        color: #666;
+        margin: 0 0 17px 0;
+      }
+      #bio h4 {
+        font-size: 20px;
+        margin: 0 0 0 0;
+      }
+      #bio h4 span {
+        color: #888;
+      }
+      #bio h5 {
+        font-size: 16px;
+        margin: 9px 0 0 0;
+      }
+      #bio p {
+        line-height: 22px;
+        margin: 0 0 23px 0;
+      }
+      #bio #about {
+        float: left;
+        width: 610px;
+        margin: 0 0 60px 0;
+      }
+      #photo-bg {
+        float: left;
+        width: 180px;
+        height: 180px;
+        margin: 0 50px 0 0;
+        -webkit-box-shadow: 0px 0 5px #aaa;
+        -moz-box-shadow: 0px 0 5px #aaa;
+        box-shadow: 0px 0 5px #aaa;
+        background: #fff;
+        padding: 5px;
+      }
+      #bio #about .photo img {
+        border: 1px #ccc solid;
+        width: 180px;
+        height: 180px;
+      }
+      #contact-details {
+        float: right;
+        width: 270px;
+      }
+      #contact-details h5 {
+        color: #555;
+      }
+      #contact-details h5 span {
+        color: #888;
+      }
+      /* ----------------------- */
+      /* -- Featured Projects -- */
+      /* ----------------------- */
+      #featured-projects {
+        float: left;
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #featured-projects h3 {
+        margin: 0 0 35px 0;
+      }
+      .project {
+        float: left;
+        width: 440px;
+        height: 240px;
+        padding: 5px;
+        background: #fff;
+        -webkit-box-shadow: 0px 0 5px #aaa;
+        -moz-box-shadow: 0px 0 5px #aaa;
+        box-shadow: 0px 0 5px #aaa;
+        margin: 0 0 55px 0;
+      }
+      .project:hover {
+        opacity: 0.7;
+      }
+      .last {
+        float: right;
+      }
+      /* -------------- */
+      /* -- Services -- */
+      /* -------------- */
+      #services {
+        overflow: hidden;
+        padding: 0 0 0 0;
+      }
+      #services h3 {
+        margin: 0 0 25px 0;
+      }
+      #services .service {
+        float: left;
+        margin: 0 0 0 60px;
+      }
+      #services .first {
+        margin-left: 0;
+      }
+      #services img {
+        float: left;
+      }
+      #services h4 {
+        float: left;
+        margin: 0px 0 10px 10px;
+        font-size: 18px;
+      }
+      #services p {
+        clear: both;
+        width: 270px;
+      }
+      /* ------------------------ */
+      /* -- Additional Details -- */
+      /* ------------------------ */
+      #testimonials {
+        width: 100%;
+        overflow: hidden;
+      }
+      #testimonials h3 {
+        margin: 0 0 25px 0;
+      }
+      #testimonials .testimonial {
+        float: left;
+        width: 455px;
+        font-style: italic;
+        margin: 0 0 30px 0;
+      }
+      #testimonials .testimonial .author-details {
+        color: #222;
+        margin: -10px 0 0 0;
+        font-style: normal;
+      }
+      #testimonials .testimonial span {
+        color: #888;
+      }
+      .last {
+        float: right !important;
+      }
+      /* ------------ */
+      /* -- Footer -- */
+      /* ------------ */
+      #footer {
+        clear: both;
+        margin: 40px 0 35px 0;
+        border-top: 3px #ddd solid;
+      }
+      #footer p {
+        font-size: 18px;
+        color: #aaa;
+        margin-top: 10px;
+      }
+
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      font,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+      }
+
+      body {
+        line-height: 1;
+        color: black;
+        background: white;
+      }
+
+      #bio {
+        margin-bottom: -80px;
+      }
+
+      #header {
+        height: 40px;
+      }
+
+      #header h1 {
+        float: left;
+        font-size: 40px;
+        font-weight: bold;
+        letter-spacing: -2px;
+        margin: 0;
+      }
+
+      #bio {
+        margin-bottom: 0;
+      }
+
+      #about {
+        margin-botton: 0;
+      }
+
+      #photo-bg {
+        float: left;
+        width: 180px;
+        height: 180px;
+        margin: 0 50px 0 0;
+        -webkit-box-shadow: 0px 0 5px #aaa;
+        -moz-box-shadow: 0px 0 5px #aaa;
+        box-shadow: 0px 0 5px #aaa;
+        background: #fff;
+        padding: 5px;
+      }
+
+      #bio h3 {
+        font-size: 20px;
+        color: #666;
+        margin: 0 0 17px 0;
+      }
+
+      #contact-details h5 {
+        color: #555;
+      }
+
+      #bio h5 {
+        font-size: 16px;
+        margin: 9px 0 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div style="text-align: center; margin: 30px 0 80px 0">
+        <h1 style="font-size: 45px; font-family: inheritrs">Profile</h1>
+      </div>
+      <div id="bio">
+        <div id="about">
+          <img
+            alt="avt"
+            style="width: 180px; height: 180px; float: left; margin: 0 50px 0 0"
+            src="{img}"
+          />
+          <!--            <div id="photo-bg"><img src="{img}"> </div>-->
+          <h3>Name: <span>{name}</span></h3>
+          <div class="col-lg-12">
+            <h3>Bio</h3>
+          </div>
+
+          <div class="col-lg-12">
+            <p class="col-lg-12">{bio}</p>
+          </div>
+        </div>
+        <div id="contact-details">
+          <h3>Date of birth: <span>{date_of_birth}</span></h3>
+        </div>
+      </div>
+      <div class="line"></div>
+    </div>
+    <form method="post">
+      <div style="text-align: center">
+        <button type="button" class="btn btn-outline-secondary">
+          <a
+            style="text-align: center; color: #555555"
+            href="/users/profile/edit"
+            >Edit</a
+          >
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

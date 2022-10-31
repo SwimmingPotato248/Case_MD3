@@ -13,7 +13,7 @@ module.exports.userController = (req, res) => {
     const id = url.parse(req.url).pathname.slice(1).split("/")[1];
     if (req.method === "GET") {
       fs.readFile(
-        "C:\\Users\\Iris\\WebstormProjects\\MD3\\CaseMD3\\Case_MD3\\src\\viewProfile\\uploadAvtProfile.html",
+        "src/views/profile/uploadAvtProfile.html",
         "utf-8",
         (err, uploadAvtHtml) => {
           if (err) {
@@ -36,8 +36,6 @@ module.exports.userController = (req, res) => {
         let tmpPath = dataImgInput.filepath;
 
         let newPath = __dirname + "/uploads/" + dataImgInput.originalFilename;
-        console.log("tmpPath", tmpPath);
-        console.log("newPath", newPath);
 
         // console.log('ảnh' + newPath);
         // thêm avt vào database
@@ -47,8 +45,6 @@ module.exports.userController = (req, res) => {
           `../controllers/uploads/${dataImgInput.originalFilename}`,
           `${id}`
         );
-
-        console.log("link ảnh ", dataImgInput.originalFilename);
 
         fs.readFile(newPath, err => {
           if (err) {
@@ -68,7 +64,7 @@ module.exports.userController = (req, res) => {
   else if (path.match(/\/users\/\d+/)) {
     const id = url.parse(req.url).pathname.slice(1).split("/")[1];
     fs.readFile(
-      "C:\\Users\\Iris\\WebstormProjects\\MD3\\CaseMD3\\Case_MD3\\src\\viewProfile\\showProfile.html",
+      "src/views/profile/showProfile.html",
       "utf-8",
       async (err, createProfileHtml) => {
         if (err) {
@@ -86,7 +82,6 @@ module.exports.userController = (req, res) => {
             "{img}",
             profile[0].avatar
           );
-          console.log(profile[0].avatar);
           createProfileHtml = createProfileHtml.replace(
             "{bio}",
             profile[0].bio

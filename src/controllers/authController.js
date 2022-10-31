@@ -7,7 +7,7 @@ const UserService = require("../models/auth");
 
 module.exports.authController = (req, res) => {
   const path = url.parse(req.url).pathname;
-  if (path === "/auth" || "/auth/login") {
+  if (path === "/auth" || path === "/auth/login") {
     if (req.method === "GET") {
       fs.readFile("./src/views/index/index.html", "utf-8", (err, loginHtml) => {
         if (err) {
@@ -37,26 +37,20 @@ module.exports.authController = (req, res) => {
             res.end();
           }
         }
-        res.writeHead(301, { Location: "/home" });
-        res.end();
       });
     }
   }
 
   if (path === "/auth/signup") {
     if (req.method === "GET") {
-      fs.readFile(
-        "C:\\Users\\HP.DESKTOP-35U4HVA\\WebstormProjects\\CASE_MD3\\Case_MD3\\src\\views\\singUp.html",
-        "utf-8",
-        (err, signUpHtml) => {
-          if (err) {
-            console.log(err);
-          }
-          res.writeHead("200", "text/html");
-          res.write(signUpHtml);
-          res.end();
+      fs.readFile("src/views/signUp.html", "utf-8", (err, signUpHtml) => {
+        if (err) {
+          console.log(err);
         }
-      );
+        res.writeHead("200", "text/html");
+        res.write(signUpHtml);
+        res.end();
+      });
     } else {
       let userChunk = "";
       req.on("data", chunk => {

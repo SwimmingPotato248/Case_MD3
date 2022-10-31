@@ -3,24 +3,22 @@ const qs = require("qs");
 const url = require("url");
 const fs = require("fs");
 const PostService = require("../models/post");
+const createCommentSection = require("../utils/createCommentSection");
+
 module.exports.postController = async (req, res) => {
   const path = url.parse(req.url).pathname;
   console.log(path);
   if (path === "/posts/create") {
     if (req.method === "GET") {
-      fs.readFile(
-        "/Users/quoctieunam/Documents/Case_MD3/views/post/create.html",
-        "utf-8",
-        (err, indexHtml) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.writeHead(200, "text/html");
-            res.write(indexHtml);
-            res.end();
-          }
+      fs.readFile("src/views/post/create.html", "utf-8", (err, indexHtml) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.writeHead(200, "text/html");
+          res.write(indexHtml);
+          res.end();
         }
-      );
+      });
     } else {
       let postChunk = "";
       req.on("data", chunk => {
@@ -30,9 +28,7 @@ module.exports.postController = async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(postChunk);
           let post = qs.parse(postChunk);
-          console.log(post);
           await PostService.savePost(post);
           res.writeHead(301, { location: "/home" });
           res.end();
@@ -41,10 +37,9 @@ module.exports.postController = async (req, res) => {
     }
   } else if (path.match(/\/posts\/edit\/\d*/)) {
     const id = url.parse(req.url).pathname.slice(1).split("/")[2];
-    console.log(id);
     if (req.method === "GET") {
       fs.readFile(
-        "/Users/quoctieunam/Documents/Case_MD3/views/post/edit.html",
+        "src/views/post/edit.html",
         "utf-8",
         async (err, editHtml) => {
           if (err) {
@@ -67,9 +62,7 @@ module.exports.postController = async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(postChunk);
           let post = qs.parse(postChunk);
-          console.log(post);
           await PostService.editPost(post, id);
           res.writeHead(301, { location: "/home" });
           res.end();
@@ -78,21 +71,16 @@ module.exports.postController = async (req, res) => {
     }
   } else if (path.match(/\/posts\/delete\/\d*/)) {
     const id = url.parse(req.url).pathname.slice(1).split("/")[2];
-    console.log(id);
     if (req.method === "GET") {
-      fs.readFile(
-        "/Users/quoctieunam/Documents/Case_MD3/views/post/delete.html",
-        "utf-8",
-        (err, editHtml) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.writeHead(200, "text/html");
-            res.write(editHtml);
-            res.end();
-          }
+      fs.readFile("src/views/post/delete.html", "utf-8", (err, editHtml) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.writeHead(200, "text/html");
+          res.write(editHtml);
+          res.end();
         }
-      );
+      });
     } else {
       let postChunk = "";
       req.on("data", chunk => {
@@ -102,21 +90,18 @@ module.exports.postController = async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(postChunk);
           let post = qs.parse(postChunk);
-          console.log(post);
           await PostService.delete(id);
           res.writeHead(301, { location: "/home" });
           res.end();
         }
       });
     }
-  }
-  if (req.url.match(/^\/posts\/\d+\/?$/)) {
+  } else if (req.url.match(/^\/posts\/\d+\/?$/)) {
     const paths = url.parse(req.url).pathname.slice(1).split("/");
     const postId = parseInt(paths[1]);
-    const post = await getPost(postId);
-    const comments = await getComments(postId);
+    const post = await PostService.getPost(postId);
+    const comments = await PostService.getComments(postId);
     if (!post) return res.end("Post not found");
     fs.readFile("src/views/post/post.html", "utf-8", (err, dataHtml) => {
       if (err) console.log(err);
@@ -134,7 +119,6 @@ module.exports.postController = async (req, res) => {
       commentForm = commentForm.replace("{postId}", postId);
       mainComment = commentForm.replace("{commentId}", "null");
       dataHtml = dataHtml.replace("{commentForm}", mainComment);
-      console.log(comments);
       let commentBody = createCommentSection(comments, commentForm);
       dataHtml = dataHtml.replace("{comments}", commentBody);
       res.end(dataHtml);
