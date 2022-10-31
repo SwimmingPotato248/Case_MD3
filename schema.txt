@@ -1,0 +1,44 @@
+CREATE TABLE `Comment` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`user_id` int NOT NULL,
+	`post_id` int NOT NULL,
+	`parent_id` int,
+	`content` text NOT NULL,
+	`created_at` datetime DEFAULT CURRENT_TIMESTAMP(),
+	PRIMARY KEY (`id`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
+
+CREATE TABLE `Post` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`user_id` int NOT NULL,
+	`content` text NOT NULL,
+	`created_at` datetime DEFAULT CURRENT_TIMESTAMP(),
+	PRIMARY KEY (`id`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
+
+  CREATE TABLE `Profile` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`user_id` int NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`date_of_birth` date NOT NULL,
+	`bio` text NOT NULL,
+	`avatar` text,
+	PRIMARY KEY (`id`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
+
+  CREATE TABLE `User` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`username` varchar(255) NOT NULL,
+	`password` varchar(255) NOT NULL,
+	`created_at` datetime DEFAULT CURRENT_TIMESTAMP(),
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `username` (`username`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
