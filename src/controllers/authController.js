@@ -94,12 +94,12 @@
 
         if (path === '/auth/logout') {
             if (req.method === 'GET') {
-                fs.readFile('C:\\Users\\HP.DESKTOP-35U4HVA\\WebstormProjects\\CASE_MD3\\Case_MD3\\src\\views\\logout.html', 'utf-8', (err, loginHtml) => {
+                fs.readFile('C:\\Users\\HP.DESKTOP-35U4HVA\\WebstormProjects\\CASE_MD3\\Case_MD3\\src\\views\\logout.html', 'utf-8', (err, logoutHtml) => {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.writeHead(301, {'location': '/auth'});
-                        res.write(loginHtml);
+                        res.writeHead(301, {'location': '/auth/index'});
+                        res.write(logoutHtml);
                         res.end();
                     }
                 })
@@ -115,7 +115,7 @@
                     res.write(createHtml);
                     res.end();
                 }
-            })
+            });
         }
     // TODO: xử lí /signin, /signup
     // signup check username unique, mã hoá password bằng argon2
