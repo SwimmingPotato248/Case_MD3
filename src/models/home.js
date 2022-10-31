@@ -5,12 +5,6 @@ const url = require('url');
 const connection = require("../utils/database");
 
 
-function sendNotification() {
-    socket.emit("sendNotification",{
-
-
-    })
-}
 
 
 

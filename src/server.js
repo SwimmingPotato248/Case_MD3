@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
     const io = new Server(server);
 
     io.on("connection", (socket) => {
-        socket.on('sendNotification' , (name) => {
+        socket.on('sendNotificationLike' , (name) => {
             console.log(name);
         });
         socket.on("disconnect", () => {
