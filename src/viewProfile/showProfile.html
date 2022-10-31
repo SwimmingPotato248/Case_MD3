@@ -316,16 +316,22 @@ URL: http://www.chris-creed.com
 </head>
 <body>
 <div id="wrap">
-    <div id="header">
-        <h1>Profile</h1>
+    <div style="text-align: center; margin: 30px 0 80px 0" >
+        <h1 style="font-size: 45px; font-family: inheritrs">Profile</h1>
     </div>
     <div id="bio">
         <div id="about">
-            <img style="width: 180px; height: 180px; float: left; margin: 0 50px 0 0;" src="{img}">
+            <img alt="avt" style="width: 180px; height: 180px; float: left; margin: 0 50px 0 0;" src="{img}">
 <!--            <div id="photo-bg"><img src="{img}"> </div>-->
             <h3>Name: <span>{name}</span></h3>
-            <h3>Bio</h3>
-            <p>{bio}</p>
+            <div class="col-lg-12" >
+                <h3>Bio</h3>
+            </div>
+
+            <div class="col-lg-12">
+                <p class="col-lg-12">{bio}</p>
+            </div>
+
         </div>
         <div id="contact-details">
             <h3>Birth of date: <span>{date_of_birth}</span></h3>
