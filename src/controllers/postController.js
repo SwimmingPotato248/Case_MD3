@@ -71,6 +71,7 @@ module.exports.postController = async (req, res) => {
     }
   } else if (path.match(/\/posts\/delete\/\d*/)) {
     const id = url.parse(req.url).pathname.slice(1).split("/")[2];
+    console.log(id);
     if (req.method === "GET") {
       fs.readFile("src/views/post/delete.html", "utf-8", (err, editHtml) => {
         if (err) {

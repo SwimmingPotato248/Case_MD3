@@ -64,7 +64,8 @@ class PostRouting {
         "{created_at}",
         new Date(post.created_at).toLocaleString()
       );
-      singlePost = singlePost.replace(/{postId}/, post.id);
+      singlePost = singlePost.replace("{postId}", post.id);
+      singlePost = singlePost.replace("{postId2}", post.id);
       singlePost = singlePost.replace("{userId}", post.user_id);
       postBody += singlePost;
     });
