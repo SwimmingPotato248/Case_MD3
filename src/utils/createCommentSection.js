@@ -21,8 +21,11 @@ function createCommentSection(comments, commentForm, parent_id = null) {
         new Date(c.created_at).toLocaleDateString()
       );
       card = card.replace("{content}", c.content);
+      console.log(c.id);
       const replyForm = commentForm.replace("{commentId}", c.id);
-      const modal = commentModal.replace("{commentModal}", replyForm);
+      console.log(replyForm);
+      let modal = commentModal.replace("{commentModal}", replyForm);
+      modal = modal.replace(/{id}/g, c.id);
       card = card.replace("{replyBtn}", modal);
       card = card.replace(
         "{replySection}",
