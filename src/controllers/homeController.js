@@ -15,8 +15,9 @@ class PostRouting {
     let tbody = '';
     posts.map((post, index) => {
       tbody += `<tr style="text-align: center">
-            <td>${index }</td>
+            <td>${index+1}</td>
             <td>${post.content}</td>
+            
             <td><a type="button" href="posts/edit/${post.id}" class="btn btn-danger">Edit</a></td>
             <td><a type="button" href="posts/delete/${post.id}" class="btn btn-danger">Delete</a></td>
         </tr>`
