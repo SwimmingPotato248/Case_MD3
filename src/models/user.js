@@ -119,3 +119,20 @@ module.exports = UserService;
 //         });
 //     });
 // };
+
+// module.exports.getUser = (id) => {
+//     const sql = `
+//         SELECT User.*, User.username
+//         FROM User
+// --     JOIN User ON Post.user_id = User.id
+//         WHERE User.id = ${id}
+//     `;
+//     return new Promise((resolve, reject) => {
+//         connection.query(sql, (err, results) => {
+//             if (err) {
+//                 console.log(err);
+//                 reject();
+//             } else resolve(results[0]);
+//         });
+//     });
+// };

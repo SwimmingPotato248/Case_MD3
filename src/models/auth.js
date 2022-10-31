@@ -37,9 +37,7 @@ class UserService {
   static checkCountSignUpUser(name) {
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT *
-                              FROM User
-                              WHERE username = "${name}"`,
+        `SELECT * FROM User WHERE username = "${name}"`,
         (err, checkUser) => {
           if (err) {
             reject(err);
@@ -50,7 +48,6 @@ class UserService {
       );
     });
   }
-
   static checkLogin(name, password) {
     return new Promise((resolve, reject) => {
       connection.query(
