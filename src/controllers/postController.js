@@ -134,7 +134,7 @@ module.exports.postController = async (req, res) => {
     });
     req.on("end", async () => {
       body = qs.parse(body);
-      await addComment(body, user_id);
+      await PostService.addComment(body, user_id);
       res.writeHead(301, { Location: `/posts/${body.postId}` });
       res.end();
     });
